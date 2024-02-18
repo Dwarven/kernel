@@ -1,7 +1,7 @@
 #==========================================================================
 # Description: Compile beta general kernel
 # Copyright (C) 2021 https://github.com/unifreq/openwrt_packit
-# Copyright (C) 2021 https://github.com/ophub/kernel
+# Copyright (C) 2021 https://github.com/Dwarven/kernel
 #==========================================================================
 
 name: Compile beta general kernel
@@ -115,7 +115,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: Dwarven/amlogic-s9xxx-armbian@main
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: kernel
@@ -130,7 +130,7 @@ jobs:
           auto_patch: ${{ inputs.auto_patch }}
 
       - name: Upload Kernel to Release
-        uses: ncipollo/release-action@main
+        uses: Dwarven/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
           tag: kernel_beta

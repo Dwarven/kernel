@@ -1,7 +1,7 @@
 #==========================================================================
 # Description: Compile release h6 kernel
 # Copyright (C) 2023 https://github.com/13584452567
-# Copyright (C) 2023 https://github.com/ophub/kernel
+# Copyright (C) 2023 https://github.com/Dwarven/kernel
 #==========================================================================
 
 name: Compile release h6 kernel
@@ -49,11 +49,11 @@ on:
       kernel_sign:
         description: "Set the kernel custom signature"
         required: false
-        default: "-zicai"
+        default: "-Dwarven"
         type: choice
         options:
           - -zicai
-          - -ophub
+          - -Dwarven
           - -happy-new-year
           - -yourname
       kernel_config:
@@ -96,7 +96,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: Dwarven/amlogic-s9xxx-armbian@main
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: kernel
@@ -109,7 +109,7 @@ jobs:
           kernel_config: ${{ inputs.kernel_config }}
 
       - name: Upload Kernel to Release
-        uses: ncipollo/release-action@main
+        uses: Dwarven/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
           tag: kernel_h6
